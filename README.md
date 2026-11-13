@@ -1,54 +1,160 @@
-# DengueShield
 
-DengueShield is an educational dengue surveillance dashboard. Choose a city or use your current location to review the latest available public dengue reports, recent WHO dengue outbreak notices, local environmental context, a map, and practical prevention and symptom guidance. Info buttons explain dashboard terms. It opens without a selected city.
+🦟 DengueShield — Smart Dengue Surveillance Platform
 
-The environmental suitability score is an illustrative heuristic. It is not a dengue test, a prediction of cases, an individual infection probability, or an official public-health alert. Public case coverage varies by place and time; unavailable reports do not mean zero cases.
+<p align="center">
+  <img src="https://img.shields.io/badge/Project-DengueShield-0D9488?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react" />
+  <img src="https://img.shields.io/badge/AI-Gemini-blue?style=for-the-badge&logo=google" />
+</p><p align="center">
+  <b>An AI-powered platform for dengue awareness, public health monitoring, and environmental surveillance.</b>
+</p><p align="center">
+  🌐 <b>Live Demo:</b> https://denguehield2k26.vercel.app/
+  <br/>
+  💻 <b>GitHub Repository:</b> https://github.com/sujanbhowmik12/DengueShield2k26
+</p>---
 
-## Start the app
+📌 About The Project
 
-Requirements: Node.js 20.9 or later.
+DengueShield is an intelligent, location-based dengue surveillance and awareness platform designed to help users explore public dengue reports, monitor environmental conditions, understand potential dengue-related risks, and access reliable health guidance.
 
-```powershell
+The platform combines public health data, climate information, interactive mapping, and Google's Gemini AI voice technology to make dengue-related information more accessible and understandable.
+
+Our goal is to use technology and data visualization to support dengue awareness and informed public health decisions.
+
+✨ Key Features
+
+- 📊 Dengue Surveillance Dashboard – Explore the latest available public dengue case reports and monthly trends.
+- 📍 Location-Based Monitoring – Search for a city or use browser geolocation to explore location-specific information.
+- 🗺️ Interactive Map – Visualize selected locations using Leaflet and OpenStreetMap.
+- 🌦️ Environmental Monitoring – Explore temperature, humidity, rainfall, and elevation data.
+- 🧮 Environmental Suitability Index – View an educational environmental indicator based on climate and elevation factors.
+- 🤖 AI Voice Assistant – Interact with a dengue-focused voice assistant powered by Gemini Live.
+- 🚨 WHO Outbreak Notices – Explore relevant recent dengue-related notices from the WHO Disease Outbreak News service.
+- 🩺 Health Awareness – Access general dengue symptoms, warning signs, prevention information, and health guidance.
+- 🎨 Modern Dashboard UI – Responsive dashboard with light and dark themes.
+
+🛠️ Technology Stack
+
+Technology| Purpose
+Next.js| Frontend framework and API routes
+React.js| User interface
+JavaScript| Application logic
+CSS| Styling and responsive design
+Leaflet.js| Interactive maps
+OpenStreetMap| Map data and tiles
+Gemini Live API| AI-powered voice interaction
+Open-Meteo API| Weather, climate, geocoding and elevation
+Global Dengue Observatory| Public dengue case data
+WHO| Outbreak notices and health guidance
+NCVBDC| Indian state/UT dengue reporting
+
+🏗️ Project Architecture
+
+DengueShield/
+│
+├── app/
+│   ├── api/
+│   │   ├── cases/
+│   │   │   └── route.js
+│   │   ├── alerts/
+│   │   │   └── route.js
+│   │   └── voice-token/
+│   │       └── route.js
+│   │
+│   ├── page.js
+│   ├── layout.js
+│   └── globals.css
+│
+├── components/
+├── data/
+├── lib/
+├── public/
+│
+├── .env.example
+├── package.json
+├── PROJECT_REPORT.md
+└── README.md
+
+⚙️ Installation & Setup
+
+Follow these steps to run DengueShield locally.
+
+1. Clone the repository
+
+git clone https://github.com/sujanbhowmik12/DengueShield2k26.git
+
+2. Navigate to the project directory
+
+cd DengueShield2k26
+
+3. Install dependencies
+
 npm install
-$env:GEMINI_API_KEY="your-server-side-key" # Optional; enables live spoken answers
+
+4. Configure environment variables
+
+Create a ".env.local" file in the root directory.
+
+GEMINI_API_KEY=your_gemini_api_key
+
+The Gemini API key is optional for the main dashboard but required for the AI voice assistant.
+
+5. Start the development server
+
 npm run dev
-```
 
-Open `http://localhost:3000`. Location search, climate context, public dengue records, and the map do not need an AI key. Live voice conversation uses Gemini Live and requires `GEMINI_API_KEY`. The server returns a single-use, short-lived token to the browser for its WebSocket session; the long-lived key remains server-side. Gemini Live detects supported spoken languages automatically. Never place the key in client-side code.
+Open your browser and visit:
 
-## Main project files
+http://localhost:3000
 
-- `app/page.js`: dashboard, location search, public case lookup, weather context, keyless map, simulator, and voice-only overlay.
-- `app/globals.css`: responsive bento layout, light/dark themes, and motion styles.
-- `app/api/cases/route.js`: selected-country case feed.
-- `app/api/alerts/route.js`: recent country-matched dengue notices from the WHO Disease Outbreak News hub.
-- `app/api/voice-token/route.js`: creates a short-lived Gemini Live token with dengue-only session instructions.
-- `app/layout.js`: Next.js root layout and metadata.
-- `package.json`: Next.js app scripts and dependencies.
-- `PROJECT_REPORT.md`: interdisciplinary project report, data limitations, and validation plan.
+6. Build for production
 
-## Data sources
-
-- Near-real-time dengue case reports and nowcasts: [Global Dengue Observatory](https://globaldengueobservatory.org/pages/data.html), which combines updates from WHO global and regional dashboards and PAHO. Its feed is monthly and country-level. For India, the app also checks the official [NCVBDC state/UT table](https://ncvbdc.mohfw.gov.in/index4.php?Background=Dark&font=Normal&lang=1&level=0&lid=+3715&linkid=431&theme=Blue) and shows a regional current-year total when that region has a numeric entry. This is state/UT context, not a city count, and the source's own reporting cutoff is displayed. Missing subnational figures are not inferred. Reported, nowcast, and backfilled country records are distinguished.
-- Historical reported dengue counts: [OpenDengue](https://opendengue.org/data), a harmonized historical compilation of public case-surveillance data.
-- Weather, historical climate, location search, and elevation: [Open-Meteo](https://open-meteo.com/).
-- Map tiles: [OpenStreetMap](https://www.openstreetmap.org/), rendered with Leaflet using the public standard tile service and no application API key.
-- General prevention and symptom education: World Health Organization resources.
-
-The Global Dengue Observatory pipeline checks its underlying sources daily, but official reporting is monthly and can lag. Nowcast and backfilled values are estimates and are labeled as such. Case counts do not represent all infections. Missing data are not replaced with synthetic values.
-
-## Voice conversation
-
-The dashboard provides a full-screen, voice-only conversation using Gemini Live. Microphone audio is sent to Gemini for real-time speech-to-speech interaction. The API token is restricted to the dengue assistant session and expires; its server key remains private. The assistant is instructed to answer only dengue, symptoms and warning signs, general dengue diagnostic/testing information, prevention, and the dashboard's location data. It can explain whether described symptoms can occur with dengue, flag urgent warning signs, and recommend clinical assessment; it must not diagnose individuals, assign personal odds, or interpret personal lab results. Gemini Live automatically detects supported languages. Microphone and network access are required; Gemini usage may incur charges.
-
-The WHO notice panel is a country-matched lookup, not an exhaustive or real-time alert service. WHO says its Disease Outbreak News list is not exhaustive. Check local health authorities for current local alerts; no matching WHO notice does not prove no outbreak exists.
-
-## Development
-
-```powershell
-npm run dev
 npm run build
 npm start
-```
 
-The environmental index weights and thresholds are illustrative and have not been calibrated against location-aligned case series. Any future predictive claim requires a defined target and time horizon, source-aligned training data, a seasonal baseline, chronological held-out validation, and documented error and calibration results.
+🔑 API & Data Sources
+
+DengueShield uses publicly available data and services:
+
+- "Global Dengue Observatory" (https://globaldengueobservatory.org/) – Public dengue surveillance data.
+- "WHO" (https://www.who.int/) – Dengue health information and outbreak notices.
+- "NCVBDC India" (https://ncvbdc.mohfw.gov.in/) – National dengue statistics.
+- "Open-Meteo" (https://open-meteo.com/) – Weather and environmental information.
+- "OpenStreetMap" (https://www.openstreetmap.org/) – Interactive mapping.
+- "Google Gemini" (https://ai.google.dev/) – AI-powered voice assistant.
+
+⚠️ Important Disclaimer
+
+DengueShield is an educational and public-health awareness prototype. It is not a medical diagnostic tool, an official surveillance system, or a clinically validated outbreak prediction platform.
+
+The environmental suitability index is illustrative and does not represent an individual's infection probability or predict future dengue cases.
+
+Public health data may be delayed, incomplete, or unavailable for certain locations. Always consult qualified healthcare professionals and local health authorities for medical advice and official updates.
+
+🚀 Future Improvements
+
+- Advanced dengue data visualization and analytics.
+- More regional public health data integration.
+- Improved multilingual AI assistance.
+- Enhanced community-level awareness and reporting.
+- More comprehensive environmental monitoring.
+- Improved accessibility and mobile experience.
+
+👥 Project Team
+
+DengueShield — 2K26
+
+Developed as an interdisciplinary technology project with a focus on public health awareness, software engineering, environmental science, and AI.
+
+❤️ Acknowledgements
+
+Special thanks to the open-source community, public health organizations, and data providers whose resources make this project possible.
+
+---
+
+<p align="center">
+  <b>🦟 DengueShield — Technology for a Healthier Tomorrow.</b>
+</p><p align="center">
+  ⭐ If you find this project useful, consider giving this repository a star!
+</p>
